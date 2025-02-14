@@ -2,9 +2,27 @@
 
 import { truncateText } from "@/utils/truncateText";
 import { Rating } from "@mui/material";
+import { useState } from "react";
 
 interface ProductDetailsProps {
     product: any;
+}
+
+export type CartProductType = {
+    id: string,
+    name: string,
+    description: string,
+    category: string,
+    brand: string,
+    selectedImg: SelectedImgType,
+    quantity: number,
+    price: number,
+}
+
+export type SelectedImgType = {
+    color: string,
+    colorCode: string,
+    image: string
 }
 
 const Horizontal = () => {
@@ -12,6 +30,16 @@ const Horizontal = () => {
 }
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
+    const [cartProduct, setCartProduct] = useState<CartProductType>({ 
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        category: product.category,
+        brand: product.brand,
+        selectedImg: { ...product.images[0] },
+        quantity: 1,
+        price: product.price
+    });
 
     const productRating = product.reviews.reduce((acc: number, item:any) => item.rating + acc, 0) / product.reviews.length;
 
