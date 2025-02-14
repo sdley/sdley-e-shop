@@ -38,7 +38,8 @@ const Footer = () => {
                         </p>
                         <p className="italic">
                             &copy; February 2025 - {new Date().toLocaleString("en-US", { month: "long" })} {new Date().getFullYear()} &nbsp;
-                            <Link href="/" className={`${redressed.className} font-bold text-xl`}>sdley e-Shop</Link> All rights reserved.
+                            <Link href="/" className={`${redressed.className} font-bold text-xl`}>sdley e-Shop</Link><br /> 
+                            All rights reserved.
                         </p>
                     </div>
                     <FooterList>
