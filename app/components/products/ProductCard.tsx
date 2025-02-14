@@ -45,7 +45,7 @@ const ProductCard :React.FC<ProductCardProps>= ({ data }) => {
                     <Image 
                         fill
                         src={data.images[0].image}
-                        alt={data.name}
+                        alt={truncateText(data.name)}
                         className="w-fill h-full object-contain"
                     />
                 </div>
