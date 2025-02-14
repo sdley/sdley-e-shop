@@ -37,7 +37,7 @@ const Footer = () => {
                             At sdley store, we offer the best quality products at the best prices. We are a one-stop shop for all your electronics needs.
                         </p>
                         <p className="italic">
-                            &copy; { new Date().getFullYear()} &nbsp;
+                            &copy; February 2025 - {new Date().toLocaleString("en-US", { month: "long" })} {new Date().getFullYear()} &nbsp;
                             <Link href="/" className={`${redressed.className} font-bold text-xl`}>sdley e-Shop</Link> All rights reserved.
                         </p>
                     </div>
