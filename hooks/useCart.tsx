@@ -1,7 +1,7 @@
 'use client';
 
 import { CartProductType } from "@/app/product/[productId]/ProductDetails";
-import { createContext, useCallback, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
 type CartContextType = {
     cartTotalQty: number;
@@ -19,6 +19,14 @@ export const CartContextProvider = (props: Props) => {
     const [cartTotalQty, setCartTotalQty] = useState(0);
     const [cartProducts, setCartProducts] = useState<CartProductType[] | null>(null);
 
+    useEffect(() => {
+        const cartItems = localStorage.getItem('sdley-eshopCartItems');
+
+        const cartProducs: CartProductType[] | null = JSON.parse(cartItems || '[]');
+
+        setCartProducts(cartProducs);
+    }, []);
+
     // add product to cart
     const handleAddProductToCart = useCallback((product: CartProductType) => {
         setCartProducts((prev) => {
@@ -29,6 +37,8 @@ export const CartContextProvider = (props: Props) => {
             }else{
                 updatedCart = [product];
             }
+
+            localStorage.setItem('sdley-eshopCartItems', JSON.stringify(updatedCart));
 
             return updatedCart;
         })

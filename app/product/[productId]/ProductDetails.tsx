@@ -40,7 +40,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     // console.log("CartTotalQty: ", cartTotalQty);
 
     const {handleAddProductToCart, cartProducts} = useCart();
-    // console.log("CartProducts: ", cartProducts);
+    console.log("CartProducts: ", cartProducts);
 
     const [cartProduct, setCartProduct] = useState<CartProductType>({ 
         id: product.id,
