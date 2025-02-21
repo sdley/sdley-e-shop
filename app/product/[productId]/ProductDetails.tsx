@@ -4,7 +4,7 @@ import Button from "@/app/components/Button";
 import ProductImage from "@/app/components/products/ProductImage";
 import SetColor from "@/app/components/products/SetColor";
 import SetQuantity from "@/app/components/products/SetQuantity";
-// import { useCart } from "@/hooks/useCart";
+import { useCart } from "@/hooks/useCart";
 import { truncateText } from "@/utils/truncateText";
 import { Rating } from "@mui/material";
 import { useCallback, useState } from "react";
@@ -38,6 +38,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
     // const {cartTotalQty} = useCart();
     // console.log("CartTotalQty: ", cartTotalQty);
+
+    const {handleAddProductToCart, cartProducts} = useCart();
+    // console.log("CartProducts: ", cartProducts);
 
     const [cartProduct, setCartProduct] = useState<CartProductType>({ 
         id: product.id,
@@ -127,7 +130,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                 <div className="max-w-[300px]">
                     <Button
                         label="Add To Cart"
-                        onClick={() => {}}
+                        onClick={() => handleAddProductToCart(cartProduct)}
                     />
                 </div>
             </div>
