@@ -8,6 +8,7 @@ type CartContextType = {
     cartTotalQty: number;
     cartProducts: CartProductType[] | null;
     handleAddProductToCart: (product: CartProductType) => void;
+    handleRemoveProductFromCart: (product: CartProductType) => void;
 };
 
 export const CartContext = createContext<CartContextType | null>(null); 
@@ -39,23 +40,33 @@ export const CartContextProvider = (props: Props) => {
                 updatedCart = [product];
             }
 
-            // toast.success('Product added to cart');
             localStorage.setItem('sdley-eshopCartItems', JSON.stringify(updatedCart));
 
             return updatedCart;
         })
+
+        // toast notification
+        toast.success('Product added to cart!');
+
     }, []);
 
-    useEffect(() => {
-        if (cartProducts && cartProducts.length > 0) {
-            toast.success('Product added to cart');
+    const handleRemoveProductFromCart = useCallback((product: CartProductType) => {
+        if (cartProducts) {
+            const filteredProducts = cartProducts.filter((item) => {
+                return item.id !== product.id;
+            });
+
+            setCartProducts(filteredProducts);
+            toast.success('Product removed!');
+            localStorage.setItem('sdley-eshopCartItems', JSON.stringify(filteredProducts));
         }
-    }, [cartProducts]);  // Trigger only when cartProducts changes
+    }, [cartProducts]);
 
     const value = {
         cartTotalQty,
         cartProducts,
         handleAddProductToCart,
+        handleRemoveProductFromCart
     }
 
     return <CartContext.Provider value={value} {...props} />
