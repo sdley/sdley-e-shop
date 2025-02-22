@@ -4,6 +4,7 @@ import Link from "next/link";
 import { MdArrowBack } from "react-icons/md";
 import Heading from "../components/Heading";
 import Button from "../components/Button";
+import ItemContent from "./ItemContent";
 
 const CartClient = () => {
     const { cartProducts } = useCart();
@@ -37,14 +38,14 @@ const CartClient = () => {
                 items-center
                 mt-8
             ">
-                <div className="col-snap-2 justify-self-start">PRODUCT</div>
-                <div className="justify-self-start">PRICE</div>
-                <div className="justify-self-start">QUANTITY</div>
+                <div className="col-span-2 justify-self-start">PRODUCT</div>
+                <div className="justify-self-center">PRICE</div>
+                <div className="justify-self-center">QUANTITY</div>
                 <div className="justify-self-end">TOTAL</div>
             </div>
             <div>
                 {cartProducts && cartProducts.map((item) => {
-                    return <div key={item.id}>{item.name}</div>
+                    return <ItemContent key={item.id} item={item} />;
                 })}
             </div>
             <div className="border-t-[1.5px] border-slate-200 py-4 flex justify-between gap-4">
