@@ -2,6 +2,7 @@
 
 import { CartProductType } from "@/app/product/[productId]/ProductDetails";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 
 type CartContextType = {
     cartTotalQty: number;
@@ -38,11 +39,18 @@ export const CartContextProvider = (props: Props) => {
                 updatedCart = [product];
             }
 
+            // toast.success('Product added to cart');
             localStorage.setItem('sdley-eshopCartItems', JSON.stringify(updatedCart));
 
             return updatedCart;
         })
     }, []);
+
+    useEffect(() => {
+        if (cartProducts && cartProducts.length > 0) {
+            toast.success('Product added to cart');
+        }
+    }, [cartProducts]);  // Trigger only when cartProducts changes
 
     const value = {
         cartTotalQty,
