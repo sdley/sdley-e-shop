@@ -23,7 +23,9 @@ const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
     return ( 
         <div
             className="
-            grid
+            flex
+            flex-col
+            md:grid
             grid-cols-5
             text-xs
             md:text-sm

@@ -156,7 +156,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                             <Link href={"/"} 
                                 className="
                                 text-slate-500 flex items-center gap-1
-                                mt-2
+                                mt-4
                             ">
                                 <MdArrowBack />
                                 <span>Continue Shopping</span>
@@ -185,7 +185,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                             <Link href={"/"} 
                                 className="
                                 text-slate-500 flex items-center gap-1
-                                mt-2
+                                mt-4
                             ">
                                 <MdArrowBack />
                                 <span>Return Back To Products List</span>
