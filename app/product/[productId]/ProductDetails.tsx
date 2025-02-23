@@ -7,9 +7,10 @@ import SetQuantity from "@/app/components/products/SetQuantity";
 import { useCart } from "@/hooks/useCart";
 import { truncateText } from "@/utils/truncateText";
 import { Rating } from "@mui/material";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { MdCheckCircle } from "react-icons/md";
+import { MdArrowBack, MdCheckCircle } from "react-icons/md";
 
 interface ProductDetailsProps {
     product: any;
@@ -152,6 +153,14 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                                     onClick={() => {router.push('/cart');}}
                                 />
                             </div>
+                            <Link href={"/"} 
+                                className="
+                                text-slate-500 flex items-center gap-1
+                                mt-2
+                            ">
+                                <MdArrowBack />
+                                <span>Continue Shopping</span>
+                            </Link>
                         </>
                     ) : (
                         <>
@@ -173,6 +182,14 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                                     onClick={() => handleAddProductToCart(cartProduct)}
                                 />
                             </div>
+                            <Link href={"/"} 
+                                className="
+                                text-slate-500 flex items-center gap-1
+                                mt-2
+                            ">
+                                <MdArrowBack />
+                                <span>Return Back To Products List</span>
+                            </Link>
                         </>
                     )
                 }
