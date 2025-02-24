@@ -5,6 +5,7 @@ import NavBar from "./components/nav/Navbar";
 import Footer from "./components/footer/Footer";
 import CartProvider from "@/providers/CartProvider";
 import { Toaster } from "react-hot-toast";
+import { getCurrentUser } from "@/actions/getCurrentUser";
 
 const poppins = Poppins({
   subsets: ["latin"], weight: ['400', '700']
@@ -16,11 +17,15 @@ export const metadata: Metadata = {
   description: "sdley e-shop est une application de commerce electronique.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const currentUser = await getCurrentUser();
+  console.log("User", currentUser); // SSR component => terminal server 
+
   return (
     <html lang="en">
       <body
