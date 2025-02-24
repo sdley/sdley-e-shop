@@ -7,8 +7,18 @@ import Link from "next/link";
 import MenuItem from "./MenuItem";
 import { signOut } from "next-auth/react";
 import BackDrop from "./BackDrop";
+import { SafeUser } from "@/types";
 
-const UserMenu = () => {
+interface UserMenuProps {
+    /**
+     * currentUser: User; // User type from prisma/client won't work since we altered createdAt, updatedAt and emailVerified to string!
+    * These fileds are expected to be Date, Date and boolean respectively.
+    * That's why We can't use the User type from prisma/client here.
+     */
+    currentUser: SafeUser | null;
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({currentUser}) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleOpen = useCallback(() => {
@@ -55,36 +65,40 @@ const UserMenu = () => {
                             cursor-pointer
                             "
                         >
-                            <div>
-                                <Link href={'/orders'}>
-                                    <MenuItem onClick={toggleOpen}>
-                                        Your Orders
+                            {currentUser ? 
+                                <div>
+                                    <Link href={'/orders'}>
+                                        <MenuItem onClick={toggleOpen}>
+                                            Your Orders
+                                        </MenuItem>
+                                    </Link>
+                                    <Link href={'/admin'}>
+                                        <MenuItem onClick={toggleOpen}>
+                                            Admin Dashboard
+                                        </MenuItem>
+                                    </Link>
+                                    <hr />
+                                    <MenuItem onClick={() => {
+                                        toggleOpen();
+                                        signOut();
+                                    }}>
+                                        Logout
                                     </MenuItem>
-                                </Link>
-                                <Link href={'/admin'}>
-                                    <MenuItem onClick={toggleOpen}>
-                                        Admin Dashboard
-                                    </MenuItem>
-                                </Link>
-                                <MenuItem onClick={() => {
-                                    toggleOpen();
-                                    signOut();
-                                }}>
-                                    Logout
-                                </MenuItem>
-                            </div>
-                            <div>
-                                <Link href="/login">
-                                    <MenuItem onClick={toggleOpen}>
-                                        Login
-                                    </MenuItem>
-                                </Link>
-                                <Link href="/register">
-                                    <MenuItem onClick={toggleOpen}>
-                                        Register
-                                    </MenuItem>
-                                </Link>
-                            </div>
+                                </div>
+                                : 
+                                <div>
+                                    <Link href="/login">
+                                        <MenuItem onClick={toggleOpen}>
+                                            Login
+                                        </MenuItem>
+                                    </Link>
+                                    <Link href="/register">
+                                        <MenuItem onClick={toggleOpen}>
+                                            Register
+                                        </MenuItem>
+                                    </Link>
+                                </div>
+                            }
                         </div>
                     )
                 }
