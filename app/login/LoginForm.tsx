@@ -60,7 +60,7 @@ const LoginForm: React.FC<LoginFormProps> = ({currentUser}) => {
     }
 
     if (currentUser) {
-        return <p className="text-center">Already Logged in! Redirecting...</p>
+        return <p className="text-center">Logged in! Redirecting...</p>
     }
 
     return ( 
@@ -68,7 +68,7 @@ const LoginForm: React.FC<LoginFormProps> = ({currentUser}) => {
             <Heading title={`Sign in to sdley-E~Shop`} />
             <Button 
                 label="Sign in with Google"
-                onClick={() => {}}
+                onClick={() => {signIn('google')}}
                 outline
                 icon={AiOutlineGoogle}
             />

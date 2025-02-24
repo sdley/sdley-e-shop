@@ -71,7 +71,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({currentUser}) => {
     };
 
     if (currentUser) {
-        return <p className="text-center">Already Logged in! Redirecting...</p>
+        return <p className="text-center">Logged in! Redirecting...</p>
     }
 
     return ( 
@@ -79,7 +79,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({currentUser}) => {
             <Heading title={`Sign up for sdley-E~Shop`} />
             <Button 
                 label="Sign up with Google"
-                onClick={() => {}}
+                onClick={() => {signIn('google')}}
                 outline
                 icon={AiOutlineGoogle}
             />
