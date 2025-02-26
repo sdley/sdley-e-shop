@@ -50,7 +50,7 @@ model Order{
   amount Float
   currency String
   status String
-  deliveruStatus String?
+  deliveryStatus String?
   createDate DateTime @default(now())
   paymentIntentId String @unique
   products CartProductType[]

@@ -5,7 +5,7 @@ import { CartProductType } from '@/app/product/[productId]/ProductDetails';
 import { getCurrentUser } from '@/actions/getCurrentUser';
 import axios from 'axios';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KET as string, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
     apiVersion: "2025-02-24.acacia",
 });
 
@@ -31,15 +31,28 @@ const convertXOFtoUSD = async (amountInXOF: number) => {
     return amountInUSD;
 };
 
-const calculateOrderAmount = (items: CartProductType[]) => {
+const calculateOrderAmount = async (items: CartProductType[]) => {
     // totalPrice in xof
     const totalPriceXOF = items.reduce((acc, item) => {
         const itemTotal = item.price * item.quantity;
         return acc + itemTotal;
     }, 0);
 
+    console.log("Total Price XOF:", totalPriceXOF);
+
     // total amount in usd
-    const totalPrice = convertXOFtoUSD(totalPriceXOF);
+    // const totalPrice = convertXOFtoUSD(totalPriceXOF);
+    let totalPrice = await convertXOFtoUSD(totalPriceXOF);
+    totalPrice = parseFloat(totalPrice.toFixed(2));
+
+    /**
+     * To avoid errors such as [Error: Invalid integer: 381843.316008]
+     * when for example:
+     * Total Price XOF: 2392501.98
+     * Total Order Amount USD: 381843.316008
+     * We will round the total order amount to 2 decimal places
+     */
+    
     
     return totalPrice;
 };
@@ -53,10 +66,14 @@ export async function POST(request: Request) {
 
     const body = await request.json();
     const { items, payment_intent_id } = body;
-    const total = calculateOrderAmount(items) * 100;
+    const ExactTotalUSD = await calculateOrderAmount(items) * 100;
+    let total = await calculateOrderAmount(items) * 100;
+    total = parseFloat(total.toFixed(2));
+    console.log("Exact Total Order Amount in USD:", ExactTotalUSD);
+    console.log("Total Order Amount USD:", total);
     const orderData = {
         user: { connect: { id: currentUser.id} },
-        amout: total,
+        amount: total,
         currency: 'usd',
         status: 'pending',
         deliveryStatus: 'pending',
