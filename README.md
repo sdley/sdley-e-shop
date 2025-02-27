@@ -88,6 +88,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 🚀 **Your application is now ready to use!**
 
 ---
+
 ## Copyright
 - Copyright [sdley](https://sdley.github.io/) 2024
 - https://sdley.github.io/
